@@ -3,12 +3,14 @@ import Navbar from '../components/Navbar'
 import Sidebar from '../components/Sidebar'
 import Card from '../components/Card'
 import RecentActivityCardComponent from '../components/RecentActivityCardContainer'
+import PeerForm from '../components/Peerform'
+import Terms from '../components/Terms'
 
 
 const PeerScoring = () => {
   return (
     <div>
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-white min-h-screen">
     {/* Navbar */}
     <Navbar />
 
@@ -16,21 +18,36 @@ const PeerScoring = () => {
     <div className="flex">
       {/* Sidebar (Fixed Width, Full Height) */}
       <div className="w-1/5 h-screen bg-white shadow-md">
-        <Sidebar />
+      {/* <Sidebar
+        menuItems={["My Profile", "Peer Scoring", "LeaderBoard"]}
+        onLogout={() => console.log("User logged out!")}
+      /> */}
+
+<Sidebar
+  menuItems={[
+    { label: "My Profile", path: "/userprofile" },
+    { label: "Peer Scoring", path: "/peerscoring" },
+    { label: "LeaderBoard", path: "/leaderboard" },
+  ]}
+  onLogout={() => console.log("Logged out")}
+/>
       </div>
 
       {/* Main Content - Cards & Recent Activities */}
-      <div className="flex-1 p-6">
-        {/* Cards Row */}
-        <div className="flex justify-between gap-4 mb-6">
-          <Card title="PMS Points" value="85" />
-          <Card title="Rank" value="9" />
-          <Card title="Remaining Points" value="8/10" />
+
+      <div className="w-3/4 p-6 flex justify-between">
+          {/* PeerForm */}
+          <div className="w-2/3 p-4">
+            <PeerForm />
+          </div>
+
+          {/* Terms */}
+          <div className="w-1/3 p-4">
+            <Terms />
+          </div>
         </div>
 
-        {/* Recent Activities Section */}
-        <RecentActivityCardComponent />
-      </div>
+
     </div>
   </div>
   </div>

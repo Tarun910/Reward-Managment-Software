@@ -9,13 +9,25 @@ const UserProfile = () => {
     <div>
       <div className="bg-gray-100 min-h-screen">
       {/* Navbar */}
-      <Navbar />
+      <Navbar title="Hi, User" />
 
       {/* Main Layout - Sidebar Fixed + Main Content */}
       <div className="flex">
         {/* Sidebar (Fixed Width, Full Height) */}
         <div className="w-1/5 h-screen bg-white shadow-md">
-          <Sidebar />
+        {/* <Sidebar
+        menuItems={["My Profile", "Peer Scoring", "LeaderBoard"]}
+        onLogout={() => console.log("User logged out!")}
+      /> */}
+
+<Sidebar
+  menuItems={[
+    { label: "My Profile", path: "/userprofile" },
+    { label: "Peer Scoring", path: "/peerscoring" },
+    { label: "LeaderBoard", path: "/leaderboard" },
+  ]}
+  onLogout={() => console.log("Logged out")}
+/>
         </div>
 
         {/* Main Content - Cards & Recent Activities */}

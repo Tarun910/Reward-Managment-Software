@@ -13,6 +13,7 @@ import PeerScoring from "./pages/PeerScoring";
 import Leaderboard from "./pages/Leaderboard";
 import TopPerformerCard from "./components/TopPerformerCard";
 import Test from "./pages/Test";
+import AdminPage from "./pages/AdminPage";
 
 const App = () => {
   return (
@@ -24,6 +25,11 @@ const App = () => {
         <Route path="/peerscoring" element={<PeerScoring />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/test" element={<Test />} />
+
+
+        <Route path="/adminpage" element={<AdminPage />} />
+
+
       </Routes>
     </Router>
   );
