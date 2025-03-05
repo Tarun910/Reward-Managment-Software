@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaEdit, FaUserPlus, FaTrash } from "react-icons/fa"; // Import Icons
 
 const LeaderBoardTable = ({ isHR }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -7,48 +8,87 @@ const LeaderBoardTable = ({ isHR }) => {
     { id: 2, name: "Jane Smith", peerScore: 9, pmsScore: 6, totalScore: 15 },
     { id: 3, name: "Alice Johnson", peerScore: 7, pmsScore: 8, totalScore: 15 },
     { id: 4, name: "Bob Brown", peerScore: 8, pmsScore: 7, totalScore: 15 },
-    { id: 5, name: "Chris Evans", peerScore: 6, pmsScore: 9, totalScore: 15 },
-    { id: 6, name: "Emma Watson", peerScore: 7, pmsScore: 6, totalScore: 13 },
-    { id: 7, name: "Michael Jordan", peerScore: 8, pmsScore: 8, totalScore: 16 },
-    { id: 8, name: "Serena Williams", peerScore: 9, pmsScore: 7, totalScore: 16 },
-    { id: 9, name: "Tom Holland", peerScore: 6, pmsScore: 6, totalScore: 12 },
-    { id: 10, name: "Scarlett Johansson", peerScore: 7, pmsScore: 7, totalScore: 14 },
-    { id: 11, name: "Robert Downey Jr.", peerScore: 8, pmsScore: 8, totalScore: 16 },
-    { id: 12, name: "Elon Musk", peerScore: 9, pmsScore: 7, totalScore: 16 },
-    { id: 13, name: "Jeff Bezos", peerScore: 7, pmsScore: 6, totalScore: 13 },
-    { id: 14, name: "Mark Zuckerberg", peerScore: 6, pmsScore: 8, totalScore: 14 },
-    { id: 15, name: "Cristiano Ronaldo", peerScore: 9, pmsScore: 9, totalScore: 18 },
-    { id: 16, name: "Lionel Messi", peerScore: 10, pmsScore: 9, totalScore: 19 },
-    { id: 17, name: "Neymar Jr.", peerScore: 8, pmsScore: 8, totalScore: 16 },
-    { id: 18, name: "Usain Bolt", peerScore: 7, pmsScore: 7, totalScore: 14 },
-    { id: 19, name: "Virat Kohli", peerScore: 9, pmsScore: 8, totalScore: 17 },
-    { id: 20, name: "Rafael Nadal", peerScore: 8, pmsScore: 7, totalScore: 15 },
   ]);
 
-  const handleEditPMS = (id, newPmsScore) => {
-    if (!isHR) return;
-    setEmployees((prev) =>
-      prev.map((emp) =>
-        emp.id === id
-          ? {
-              ...emp,
-              pmsScore: newPmsScore,
-              totalScore: emp.peerScore + newPmsScore,
-            }
-          : emp
-      )
-    );
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [newPmsScore, setNewPmsScore] = useState(0);
+  const [newEmployeeName, setNewEmployeeName] = useState("");
+
+  // Function to add a new employee
+  const handleAddEmployee = () => {
+    if (newEmployeeName.trim() === "") return alert("Enter employee name!");
+
+    const newEmployee = {
+      id: employees.length + 1,
+      name: newEmployeeName,
+      peerScore: 0,
+      pmsScore: 0,
+      totalScore: 0,
+    };
+
+    setEmployees((prevEmployees) => [...prevEmployees, newEmployee].sort((a, b) => b.totalScore - a.totalScore));
+    setNewEmployeeName(""); // Reset input field
   };
 
+  // Function to remove an employee
+  const handleRemoveEmployee = (id) => {
+    setEmployees((prevEmployees) => prevEmployees.filter((emp) => emp.id !== id).sort((a, b) => b.totalScore - a.totalScore));
+  };
+
+  // Open the edit popup
+  const openEditPopup = (employee) => {
+    if (!isHR) return;
+    setSelectedEmployee(employee);
+    setNewPmsScore(employee.pmsScore);
+    setIsPopupOpen(true);
+  };
+
+  // Update PMS Score and recalculate total score
+  const handleUpdatePMS = () => {
+    if (!isHR || selectedEmployee === null) return;
+
+    setEmployees((prevEmployees) =>
+      prevEmployees
+        .map((emp) =>
+          emp.id === selectedEmployee.id
+            ? { ...emp, pmsScore: newPmsScore, totalScore: emp.peerScore + newPmsScore }
+            : emp
+        )
+        .sort((a, b) => b.totalScore - a.totalScore) // Sort after update
+    );
+
+    setIsPopupOpen(false); // Close popup after updating
+  };
+
+  // Filter employees based on search input
   const filteredEmployees = employees.filter((emp) =>
     emp.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-6xl mx-auto mt-10">
-      {/* Title & Search Bar */}
+      {/* Title & Search Bar with Add Employee Icon */}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-700">Leaderboard</h2>
+        <div className="flex items-center gap-3">
+          {/* Add Employee Input & Button (Only for HR) */}
+          {isHR && (
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="New Employee Name"
+                className="p-2 border rounded-lg"
+                value={newEmployeeName}
+                onChange={(e) => setNewEmployeeName(e.target.value)}
+              />
+              <button onClick={handleAddEmployee} className="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-700">
+                <FaUserPlus />
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Search Bar */}
         <input
           type="text"
           placeholder="Search employee..."
@@ -58,16 +98,17 @@ const LeaderBoardTable = ({ isHR }) => {
         />
       </div>
 
-      {/* Table Container */}
+      {/* Table Container with Scroll */}
       <div className="max-h-[500px] overflow-y-auto border border-gray-300 rounded-lg">
         <table className="w-full border-collapse">
           <thead className="bg-gray-200 text-gray-700 sticky top-0">
             <tr>
-              <th className="border border-gray-300 p-3 w-1/12">Rank</th>
-              <th className="border border-gray-300 p-3 w-3/12">Name</th>
-              <th className="border border-gray-300 p-3 w-2/12">Peer Score</th>
-              <th className="border border-gray-300 p-3 w-2/12">PMS Score</th>
-              <th className="border border-gray-300 p-3 w-2/12">Total Score</th>
+              <th className="border border-gray-300 p-3">Rank</th>
+              <th className="border border-gray-300 p-3">Name</th>
+              <th className="border border-gray-300 p-3">Peer Score</th>
+              <th className="border border-gray-300 p-3">PMS Score</th>
+              <th className="border border-gray-300 p-3">Total Score</th>
+              {isHR && <th className="border border-gray-300 p-3">Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -76,26 +117,54 @@ const LeaderBoardTable = ({ isHR }) => {
                 <td className="border border-gray-300 p-3">{index + 1}</td>
                 <td className="border border-gray-300 p-3">{emp.name}</td>
                 <td className="border border-gray-300 p-3">{emp.peerScore}</td>
-                <td className="border border-gray-300 p-3">
-                  {isHR ? (
-                    <input
-                      type="number"
-                      className="w-16 text-center border border-gray-400 rounded"
-                      value={emp.pmsScore}
-                      onChange={(e) =>
-                        handleEditPMS(emp.id, Math.max(0, Math.min(10, +e.target.value)))
-                      }
-                    />
-                  ) : (
-                    <span>{emp.pmsScore}</span>
-                  )}
-                </td>
+                <td className="border border-gray-300 p-3">{emp.pmsScore}</td>
                 <td className="border border-gray-300 p-3 font-bold">{emp.totalScore}</td>
+
+                {/* Edit & Remove Icons (Only for Admins) */}
+                {isHR && (
+                  <td className="border border-gray-300 p-3 flex justify-center gap-3">
+                    <button onClick={() => openEditPopup(emp)}>
+                      <FaEdit className="text-blue-500 text-xl cursor-pointer hover:text-blue-700" />
+                    </button>
+                    <button onClick={() => handleRemoveEmployee(emp.id)}>
+                      <FaTrash className="text-red-500 text-xl cursor-pointer hover:text-red-700" />
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Popup Modal (Only for Admins) */}
+      {isPopupOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-xl font-bold mb-4">Edit PMS Score</h3>
+            <p className="mb-2 text-gray-700">
+              Employee: <span className="font-semibold">{selectedEmployee.name}</span>
+            </p>
+
+            <label className="block font-semibold mb-1">New PMS Score</label>
+            <input
+              type="number"
+              className="w-full p-2 border rounded-lg"
+              value={newPmsScore}
+              onChange={(e) => setNewPmsScore(Math.max(0, Math.min(10, +e.target.value)))}
+            />
+
+            <div className="flex justify-end mt-4 gap-3">
+              <button className="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-700" onClick={() => setIsPopupOpen(false)}>
+                Cancel
+              </button>
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700" onClick={handleUpdatePMS}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
