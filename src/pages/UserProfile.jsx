@@ -32,16 +32,21 @@ const UserProfile = () => {
 
         {/* Main Content - Cards & Recent Activities */}
         <div className="flex-1 p-6">
-          {/* Cards Row */}
-          <div className="flex justify-between gap-4 mb-6">
-            <Card title="PMS Points" value="85" />
-            <Card title="Rank" value="9" />
-            <Card title="Remaining Points" value="8/10" />
-          </div>
+  {/* Cards Section - Shifted to the Right */}
+  <div className="flex justify-center mb-2">
+    <div className="grid grid-cols-3 gap-4 p-4 rounded-lg">
+      <Card title="PMS Points" value="85" />
+      <Card title="Rank" value="9" />
+      <Card title="Remaining Points" value="8/10" />
+    </div>
+  </div>
 
-          {/* Recent Activities Section */}
-          <RecentActivityCardComponent />
-        </div>
+  {/* Recent Activities Section */}
+  <div className=" p-4 rounded-lg ">
+    <RecentActivityCardComponent />
+  </div>
+</div>
+
       </div>
     </div>
     </div>

@@ -1,6 +1,6 @@
 const Card = ({ name, score, rank, image }) => {
     return (
-      <div className="bg-gradient-to-r from-blue-400 to-purple-500 text-white p-6 rounded-xl shadow-lg 
+      <div className="bg-gradient-to-r from-blue-400 to-bg-[#1F509A] text-white p-6 rounded-xl shadow-lg 
                       w-80 h-52 text-center transition-all duration-300 hover:scale-105 
                       shadow-[5px_5px_15px_#b8b8b8,-5px_-5px_15px_#ffffff] mx-12 my-4">
         

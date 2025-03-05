@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("user"); // Default role: user
+  const [role, setRole] = useState("user");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // Hardcoded credentials for testing (Replace with API call in future)
   const users = {
     user: { email: "user@example.com", password: "user123" },
     admin: { email: "admin@example.com", password: "admin123" },
@@ -16,91 +15,88 @@ export default function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
-    // Check if email and password match the selected role
     if (email === users[role].email && password === users[role].password) {
-      // Redirect based on role
-      if (role === "admin") {
-        navigate("/adminpage");
-      } else {
-        navigate("/userprofile");
-      }
+      navigate(role === "admin" ? "/adminpage" : "/userprofile");
     } else {
       setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-200 p-4">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-xl p-6">
-        <h2 className="text-center text-xl font-semibold">Sign in</h2>
-        <h3 className="text-center text-2xl font-bold mt-2">Welcome again!</h3>
-        <p className="text-center text-gray-600 text-sm mb-4">Please enter your details</p>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-2xl p-6">
+        <h2 className="text-center text-3xl font-bold text-[#1F509A]">Welcome Back</h2>
+        <p className="text-center text-gray-500 text-sm mb-6">Sign in to your account</p>
 
-        {/* Role Selection */}
-        <div className="flex gap-2 mb-4">
+        <div className="flex mb-4 bg-gray-100 p-1 rounded-lg">
           <button
-            className={`flex-1 py-2 border rounded-lg font-medium transition ${
-              role === "user" ? "bg-gray-800 text-white" : "bg-gray-200"
-            } hover:bg-gray-300 cursor-pointer`}
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${
+              role === "user" ? "bg-[#1F509A] text-white" : "text-gray-600"
+            }`}
             onClick={() => setRole("user")}
           >
-            User Login
+            🔑 User
           </button>
 
           <button
-            className={`flex-1 py-2 border rounded-lg font-medium transition ${
-              role === "admin" ? "bg-gray-800 text-white" : "bg-gray-200"
-            } hover:bg-gray-300 cursor-pointer`}
+            className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${
+              role === "admin" ? "bg-[#1F509A] text-white" : "text-gray-600"
+            }`}
             onClick={() => setRole("admin")}
           >
-            Admin Login
+            🛡️ Admin
           </button>
         </div>
 
-        {/* Login Form */}
-        <form onSubmit={handleLogin}>
-          <div className="space-y-3">
-            <div>
-              <label className="text-sm font-medium text-gray-700">Email</label>
-              <input
-                type="email"
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-400"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="text-sm font-medium text-gray-700">Password</label>
-              <input
-                type="password"
-                className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:ring-gray-400"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <input
+              type="email"
+              placeholder="Email address"
+              className="w-full px-4 py-3 border rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:[#1F509A]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
 
-          <div className="text-right mt-2">
-            <a href="#" className="text-sm text-gray-600 hover:underline">
-              Forgot Password?
-            </a>
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              className="w-full px-4 py-3 border rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:[#1F509A]"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
 
-          {error && <p className="text-red-500 text-sm text-center mt-2">{error}</p>}
+          <div className="flex justify-between text-sm text-gray-600">
+            <label className="flex items-center">
+              <input type="checkbox" className="mr-1" /> Remember me
+            </label>
+            <a href="#" className="text-[#1F509A] hover:underline">Forgot password?</a>
+          </div>
+
+          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
           <button
             type="submit"
-            className="w-full bg-gray-700 text-white py-2 rounded-lg mt-4 hover:bg-gray-900 transition"
+            className="w-full bg-[#1F509A] text-white py-3 rounded-lg text-lg font-medium hover:bg-[#1F509A] transition"
           >
-            Log In
+            Sign in
           </button>
         </form>
+
+        <p className="text-center text-gray-600 text-sm mt-4">
+          Don't have an account? <a href="#" className="text-[#1F509A] hover:underline">Sign up</a>
+        </p>
       </div>
     </div>
+
+
+
   );
 }

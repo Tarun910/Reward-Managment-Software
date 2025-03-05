@@ -71,14 +71,14 @@ const PeerForm = () => {
         <div className="flex items-center gap-3 ml-7 mt-6">
           <span className="text-xl font-semibold text-gray-700">Score:</span>
           <button
-            className="px-3 py-1 bg-blue-500 text-white rounded-md"
+            className="px-3 py-1 bg-[#1F509A] text-white rounded-md"
             onClick={() => setScore(score > 0 ? score - 1 : 0)}
           >
             -
           </button>
           <span className="text-2xl font-bold">{score}</span>
           <button
-            className="px-3 py-1 bg-blue-500 text-white rounded-md"
+            className="px-3 py-1 bg-[#1F509A] text-white rounded-md"
             onClick={() =>
               setScore(score < 3 ? score + 1 : 3) // Max score per employee = 3
             }
@@ -104,7 +104,7 @@ const PeerForm = () => {
 
       {/* Submit Button */}
       <button
-        className="bg-blue-500 text-white px-2 py-2 rounded-lg w-40 hover:bg-blue-700"
+        className="bg-[#1F509A] text-white px-2 py-2 rounded-lg w-40 hover:bg-blue-700"
         onClick={handleSubmit}
       >
         Submit
