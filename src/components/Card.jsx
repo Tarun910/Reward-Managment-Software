@@ -7,7 +7,11 @@ const Card = ({ title, value }) => {
       <h3 className="text-lg font-semibold uppercase tracking-wide">{title}</h3>
       <p className="text-4xl font-extrabold mt-2">{value}</p>
     </div>
+
+
   );
 };
 
 export default Card;
+
+

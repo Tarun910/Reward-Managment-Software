@@ -42,19 +42,19 @@ const PeerForm = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-10 text-center text-gray-700">
+    <div className=" p-9 rounded-lg ">
+   
+   <h2 className="text-3xl font-bold mt-2 mb-8 ml-66 text-center text-[#163C78]">
         Peer Scoring Panel
       </h2>
-
       {/* Employee Selection + Score Inline */}
-      <div className="mb-4 flex justify-between items-center">
+      <div className="mb-6 flex justify-between items-center">
         <div className="w-2/3">
           <label className="block font-semibold mb-1 text-gray-700">
             Name of Employee
           </label>
           <select
-            className="w-full p-2 border rounded-lg bg-white"
+            className="w-90 p-2 border rounded-lg "
             value={selectedEmployee}
             onChange={handleEmployeeChange}
           >
@@ -68,17 +68,17 @@ const PeerForm = () => {
         </div>
 
         {/* Score Counter */}
-        <div className="flex items-center gap-3 ml-7 mt-6">
+        <div className="flex items-center gap-2 mr-36 mt-6">
           <span className="text-xl font-semibold text-gray-700">Score:</span>
           <button
-            className="px-3 py-1 bg-[#1F509A] text-white rounded-md"
+            className="px-5 py-1 bg-[#1F509A] text-2xl text-white rounded-md"
             onClick={() => setScore(score > 0 ? score - 1 : 0)}
           >
             -
           </button>
           <span className="text-2xl font-bold">{score}</span>
           <button
-            className="px-3 py-1 bg-[#1F509A] text-white rounded-md"
+            className="px-5 py-1 bg-[#1F509A] text-2xl text-white rounded-md"
             onClick={() =>
               setScore(score < 3 ? score + 1 : 3) // Max score per employee = 3
             }
@@ -89,12 +89,12 @@ const PeerForm = () => {
       </div>
 
       {/* Comment Box */}
-      <div className="mb-4">
-        <label className="block font-semibold mb-1 text-gray-700">
+      <div className="mb-4 ">
+        <label className=" block font-semibold mb-1 text-gray-700">
           Comment *
         </label>
         <textarea
-          className="w-full p-2 border rounded-lg"
+          className="w-150 p-2 border rounded-lg"
           rows="4"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -104,7 +104,7 @@ const PeerForm = () => {
 
       {/* Submit Button */}
       <button
-        className="bg-[#1F509A] text-white px-2 py-2 rounded-lg w-40 hover:bg-blue-700"
+        className="bg-[#1F509A]  text-white px-2 py-2 rounded-lg w-40 hover:bg-blue-700"
         onClick={handleSubmit}
       >
         Submit

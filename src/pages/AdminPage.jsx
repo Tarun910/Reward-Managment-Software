@@ -12,7 +12,7 @@ const AdminPage = () => {
       <Navbar title="Hi, Admin" email="admin@example.com" />
 
 
-      <div className="flex">
+      <div className="flex mt-14 ml-5">
         {/* Sidebar */}
         <Sidebar
           menuItems={[]}
@@ -24,7 +24,7 @@ const AdminPage = () => {
         {/* Main Content */}
         <div className="flex-1 p-6">
           {/* Cards Row */}
-          <div className="flex justify-between gap-4 mb-6">
+          <div className="flex justify-between gap-4 -mt-9 mb-1">
             {/* <TopPerformerCard
               name="John Doe"
               score="98%"

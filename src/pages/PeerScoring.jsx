@@ -13,11 +13,11 @@ const PeerScoring = () => {
     <div className="bg-white min-h-screen">
     {/* Navbar */}
     <Navbar />
-
+ 
     {/* Main Layout - Sidebar Fixed + Main Content */}
     <div className="flex">
       {/* Sidebar (Fixed Width, Full Height) */}
-      <div className="w-1/5 h-screen bg-white shadow-md">
+      <div className="w-1/5 h-screen bg-white shadow-md ml-5 mt-13">
       {/* <Sidebar
         menuItems={["My Profile", "Peer Scoring", "LeaderBoard"]}
         onLogout={() => console.log("User logged out!")}
@@ -37,12 +37,12 @@ const PeerScoring = () => {
 
       <div className="w-3/4 p-6 flex justify-between">
           {/* PeerForm */}
-          <div className="w-2/3 p-4">
+          <div className="w-2/3 p-4 -mt-6 ">
             <PeerForm />
           </div>
 
           {/* Terms */}
-          <div className="w-1/3 p-4">
+          <div className="w-1/3 pl-2 mt-6">
             <Terms />
           </div>
         </div>

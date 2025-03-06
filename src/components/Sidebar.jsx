@@ -6,7 +6,7 @@ const Sidebar = ({ menuItems = [], onLogout, user = {}, isAdmin = false }) => {
   const location = useLocation();
 
   return (
-    <div className="w-64 bg-white h-screen p-6 flex flex-col justify-between ml-7">
+    <div className="w-60 bg-white h-screen p-2 flex flex-col justify-between ml-12">
       <div className="text-center">
         {/* Profile Picture */}
         <div className="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-black shadow-md">
@@ -21,9 +21,7 @@ const Sidebar = ({ menuItems = [], onLogout, user = {}, isAdmin = false }) => {
         <h2 className="text-lg font-semibold text-black">
           {isAdmin ? "Admin Name" : user.name || "John Doe"}
         </h2>
-        <p className="text-sm text-gray-700">
-          {isAdmin ? "Administrator" : user.designation || "Software Engineer"}
-        </p>
+      
 
         <hr className="border-black my-6" />
 

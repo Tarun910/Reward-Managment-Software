@@ -38,7 +38,7 @@ const Navbar = ({
 }) => {
   return (
     <div className={`bg-white p-4 flex justify-between items-center shadow-md ${className}`}>
-      <h1 className="text-xl text-black font-bold">{title}</h1>
+      <h1 className="text-3xl text-[#163C78] font-bold ml-28 mt-3">{title}</h1>
 
       {/* Email and User Icon */}
       <div className="flex items-center gap-4">

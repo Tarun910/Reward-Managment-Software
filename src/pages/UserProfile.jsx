@@ -14,7 +14,7 @@ const UserProfile = () => {
       {/* Main Layout - Sidebar Fixed + Main Content */}
       <div className="flex">
         {/* Sidebar (Fixed Width, Full Height) */}
-        <div className="w-1/5 h-screen bg-white shadow-md">
+        <div className="w-1/5 h-screen bg-white shadow-md ml-5 mt-13 ">
         {/* <Sidebar
         menuItems={["My Profile", "Peer Scoring", "LeaderBoard"]}
         onLogout={() => console.log("User logged out!")}
